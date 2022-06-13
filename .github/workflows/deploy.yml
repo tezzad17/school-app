@@ -8,14 +8,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@2
-      - name: Docker Login
+      - uses: actions/checkout@master
+      - name: Publish to Registry
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+          DOCKER_TIME: $(date +%s)
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Build Docker Image
-        run: docker build . --file .dockerfile.dev -t $DOCKER_USER/starter:$(date +%s)
+        run: docker build . --file .dockerfile.dev -t $DOCKER_USER/starter:$DOCKER_TIME
       - name: Push Docker Image to DockerHub
-        run: docker push $DOCKER_USER/starter
+        run: docker push $DOCKER_USER/starter:DOCKER_TIME
