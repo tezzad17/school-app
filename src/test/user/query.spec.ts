@@ -22,12 +22,12 @@ describe('User Query Class', () => {
             createdAt: new Date(),
             updatedAt: new Date(),
             name: faker.name.findName(),
-            userType: 1
+            userType: 0
         };
 
         
         mockCtx.prisma.user.findUnique.mockResolvedValue(expectUser)
-        const response = userClass.userById(mockCtx, { userId: expectUser.id });
+        const response = userClass.userById(mockCtx, expectUser.id );
         await expect(response).resolves.toEqual(expectUser);
     })
 
@@ -38,12 +38,12 @@ describe('User Query Class', () => {
             createdAt: new Date(),
             updatedAt: new Date(),
             name: faker.name.findName(),
-            userType: 1
+            userType: 0
         };
 
         const expectResponse = `${expectUser.name}-${expectUser.email}`
         mockCtx.prisma.user.findUnique.mockResolvedValue(expectUser)
-        const response = userClass.userNameEmail(mockCtx, { userId: expectUser.id });
+        const response = userClass.userNameEmail(mockCtx, expectUser.id );
         //expect(spyUserClass).toBeCalledTimes(1);
 
         await expect(response).resolves.toEqual(expectResponse);
@@ -53,7 +53,7 @@ describe('User Query Class', () => {
         const userId = "1234";
         const expectedErrorMsg = `user not found with id ${userId}`;
         mockCtx.prisma.user.findUnique.mockResolvedValue(null);
-        const response = userClass.userNameEmail(mockCtx, { userId });
+        const response = userClass.userNameEmail(mockCtx,  userId );
         expect(response).rejects.toThrow(expectedErrorMsg);
     })
 })

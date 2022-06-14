@@ -8,12 +8,31 @@ generator client {
 }
 
 model User {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  email     String     @unique
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
   name      String?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now())
-  userType  Int        @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  userType  Int      @default(0)
 }
 
+model Assignments {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
+  Course   Course? @relation(fields: [courseId], references: [id])
+  courseId String? @db.ObjectId
+}
+
+model Course {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  grade       String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
+  assignments Assignments[]
+
+  @@unique([name, grade])
+}
