@@ -1,7 +1,8 @@
 import 'reflect-metadata'
 import {
     Resolver,
-    Query,
+    FieldResolver,
+    Root,
     Ctx,
     InputType,
     Field,
@@ -34,8 +35,19 @@ class ProfessorCreateInputAssignment implements Partial<Professor> {
     assignmentName: string
 }
 
+
 @Resolver(Professor)
 export class ProfessorMutation {
+
+
+    @FieldResolver()
+    async assignments(@Root() professor: Professor, @Ctx() ctx: Context): Promise<Assignment[]> {
+        return ctx.prisma.professor.findUnique({
+            where: {
+                email: professor.email
+            }
+        }).assignments()
+    }
 
     @Mutation((returns) => Professor)
     async signupProfessor(
@@ -56,7 +68,7 @@ export class ProfessorMutation {
         @Ctx() ctx: Context
     ): Promise<Professor> {
 
-        
+
         const result = ctx.prisma.assignment.upsert({
             where: {
                 name: data.assignmentName
@@ -64,7 +76,7 @@ export class ProfessorMutation {
             create: {
                 name: data.assignmentName
             },
-            update:{
+            update: {
                 name: data.assignmentName
             }
         });
@@ -83,16 +95,13 @@ export class ProfessorMutation {
                 }
 
             },
-            update:{
+            update: {
                 name: data.name,
                 assignments: {
                     connect: [{
                         id: (await result).id
                     }]
                 }
-            },
-            include: {
-                assignments: true
             }
         })
     }

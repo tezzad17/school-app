@@ -1,3 +1,4 @@
+import { Assignment } from '@prisma/client'
 import 'reflect-metadata'
 import {
     Resolver,
@@ -6,12 +7,24 @@ import {
     InputType,
     Field,
     Arg,
+    FieldResolver,
+    Root,
 } from 'type-graphql'
 import { Context } from '../../config/context'
 import { Professor } from '../../db/entities/Professor'
 
 @Resolver(Professor)
 export class ProfessorQuery {
+
+    @FieldResolver()
+    async assignments(@Root() professor: Professor, @Ctx() ctx: Context): Promise<Assignment[]> {
+        return ctx.prisma.professor.findUnique({
+            where: {
+                email: professor.email
+            }
+        }).assignments()
+    }
+
 
     @Query(() => [Professor])
     async allProfessors(@Ctx() ctx: Context) {
@@ -38,7 +51,6 @@ export class ProfessorQuery {
             }
         });
 
-        //professorFound.assignments.
         return ctx.prisma.professor.findUnique({
             where: {
                 id: userId
