@@ -3,6 +3,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// generator typegraphql {
+//   provider = "typegraphql-prisma"
+// }
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,25 +18,57 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   userType  Int      @default(0)
+
 }
 
-model Assignments {
+model Professor {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  assignments Assignment[]
+}
+
+model Student {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
   Course   Course? @relation(fields: [courseId], references: [id])
   courseId String? @db.ObjectId
+
+  assignmentsIds String[]     @db.ObjectId
+  assignments    Assignment[] @relation(fields: [assignmentsIds], references: [id])
+}
+
+model Assignment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId String? @db.ObjectId
+
+  professor   Professor? @relation(fields: [professorId], references: [id])
+  professorId String?    @db.ObjectId
+
+  studentsIds String[]  @db.ObjectId
+  students    Student[] @relation(fields: [studentsIds], references: [id])
 }
 
 model Course {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  grade       String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @default(now())
-  assignments Assignments[]
+  period      String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+  assignments Assignment[]
+  students    Student[]
 
-  @@unique([name, grade])
+  @@unique([name, period])
 }
