@@ -38,9 +38,6 @@ model Student {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  Course   Course? @relation(fields: [courseId], references: [id])
-  courseId String? @db.ObjectId
-
   assignmentsIds String[]     @db.ObjectId
   assignments    Assignment[] @relation(fields: [assignmentsIds], references: [id])
 }
@@ -68,7 +65,6 @@ model Course {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now())
   assignments Assignment[]
-  students    Student[]
 
   @@unique([name, period])
 }

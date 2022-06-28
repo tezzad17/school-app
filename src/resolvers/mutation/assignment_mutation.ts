@@ -20,11 +20,16 @@ class AssignmentCreateInput implements Partial<Assignment> {
 
     @Field()
     name: string;
+}
 
-    // @Field((type) => [Assignment])
-    // assignment: Assignment[]
+@InputType()
+class CreateAssignmentRelatesProfessorInput implements Partial<Assignment> {
 
+    @Field()
+    name: string;
 
+    @Field()
+    studentEmail: string;
 }
 
 
@@ -36,11 +41,25 @@ export class AssignmentMutation {
         @Arg('data') data: AssignmentCreateInput,
         @Ctx() ctx: Context
     ): Promise<Assignment> {
-        return ctx.prisma.assignment.create({
-            data: {
-                name: data.name
-            }
+        return ctx.prisma.assignment.upsert({
+            where: { name: data.name },
+            create: { name: data.name },
+            update: { name: data.name }
         })
     }
+
+    @Mutation((returns) => Assignment)
+    async updateAssignmentRelatesStudent(
+        @Arg('data') data: CreateAssignmentRelatesProfessorInput,
+        @Ctx() ctx: Context
+    ): Promise<Assignment> {
+        return ctx.prisma.assignment.update({
+            where: { name: data.name },
+            data: { 
+                students: { connect: { email: data.studentEmail } }
+             }
+        })
+    }
+
 
 }
