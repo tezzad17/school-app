@@ -29,7 +29,7 @@ class AssignmentCreateInput implements Partial<Assignment> {
 
 
 @Resolver(Assignment)
-export class CourseMutation {
+export class AssignmentMutation {
 
     @Mutation((returns) => Assignment)
     async createAssignment(

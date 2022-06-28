@@ -34,9 +34,6 @@ class ProfessorCreateInputAssignment implements Partial<Professor> {
     assignmentName: string
 }
 
-
-
-
 @Resolver(Professor)
 export class ProfessorMutation {
 
@@ -59,30 +56,44 @@ export class ProfessorMutation {
         @Ctx() ctx: Context
     ): Promise<Professor> {
 
-        const result = ctx.prisma.assignment.create({
-            data:{
+        
+        const result = ctx.prisma.assignment.upsert({
+            where: {
+                name: data.assignmentName
+            },
+            create: {
+                name: data.assignmentName
+            },
+            update:{
                 name: data.assignmentName
             }
-        })
+        });
 
-        return ctx.prisma.professor.create({
-            data: {
-                email: data.email,
+        return ctx.prisma.professor.upsert({
+            where: {
+                email: data.email
+            },
+            create: {
                 name: data.name,
+                email: data.email,
                 assignments: {
-                    
-                    connect: [
-                        {
-                            id: (await result).id
-                        }
-                          
-                    ]
+                    connect: [{
+                        id: (await result).id
+                    }]
                 }
 
             },
+            update:{
+                name: data.name,
+                assignments: {
+                    connect: [{
+                        id: (await result).id
+                    }]
+                }
+            },
             include: {
                 assignments: true
-              }
+            }
         })
     }
 
