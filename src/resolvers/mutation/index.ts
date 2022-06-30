@@ -1,15 +1,17 @@
 import { NonEmptyArray } from 'type-graphql'
 import { UserMutation } from './user'
-import { AssignmentMutation } from './assignment'
-import { ProfessorMutation } from './professor'
+import { AssignmentMutation } from './assignment_mutation'
+import { ProfessorMutation } from './professor_mutation'
 import { StudentMutation } from './student_mutation'
 import { CourseMutation } from './course_mutation'
+import { ScoreMutation } from './score_mutation'
 
 export const mutations: NonEmptyArray<Function> = [
     UserMutation,
     AssignmentMutation,
     ProfessorMutation,
     StudentMutation,
-    CourseMutation
+    CourseMutation,
+    ScoreMutation
 ]
 

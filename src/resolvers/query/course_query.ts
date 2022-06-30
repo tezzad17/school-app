@@ -23,18 +23,11 @@ export class CourseQuery {
         }).assignments()
     }
 
-    @FieldResolver()
-    async students(@Root() course: Course, @Ctx() ctx: Context): Promise<Assignment[]> {
-        return ctx.prisma.course.findUnique({
-            where: {
-                name_period : { name: course.name, period: course.period }
-            }
-        }).students()
-    }
-
     @Query(() => [Course])
     async allCourse(@Ctx() ctx: Context) {
-        return ctx.prisma.course.findMany()
+        return ctx.prisma.course.findMany({
+            include: { assignments: true }
+        })
     }
 
     @Query(() => Course)

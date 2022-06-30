@@ -23,10 +23,6 @@ class StudentCreateInput implements Partial<Student> {
     @Field()
     name: string;
 
-    // @Field((type) => [Assignment])
-    // assignment: Assignment[]
-
-
 }
 
 @InputType()
@@ -55,7 +51,7 @@ export class StudentMutation {
     }
 
     @Mutation((returns) => Student)
-    async signupStudent(
+    async studentSignUp(
         @Arg('data') data: StudentCreateInput,
         @Ctx() ctx: Context
     ): Promise<Student> {
@@ -68,7 +64,7 @@ export class StudentMutation {
     }
 
     @Mutation((returns) => Student)
-    async signupProfessorAssignment(
+    async studentUpsertAssignment(
         @Arg('data') data: StudentCreateInputAssignment,
         @Ctx() ctx: Context
     ): Promise<Student> {

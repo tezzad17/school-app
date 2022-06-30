@@ -21,6 +21,6 @@ export class Student {
     course?: Course
 
     @Field((type) => [Assignment])
-    assignment?: Assignment[] 
+    assignments?: Assignment[] 
 
 }
