@@ -10,8 +10,6 @@ import {
     Arg,
 } from 'type-graphql'
 import { Context } from '../../config/context'
-import { Student } from '../../db/entities/Student';
-import { Assignment } from '../../db/entities/Assignment';
 import { type } from 'os';
 import { Score } from '../../db/entities/Score';
 
@@ -34,58 +32,50 @@ class ScoreCreateInput implements Partial<Score> {
 @Resolver(Score)
 export class ScoreMutation {
 
-    // @FieldResolver()
-    // async assignments(@Root() course: Score, @Ctx() ctx: Context): Promise<Assignment[]> {
-    //     return ctx.prisma.course.findUnique({
-    //         where: {
-    //             name_period : { name: course.name, period: course.period }
-    //         }
-    //     }).assignments()
-    // }
+    @Mutation((returns) => Score)
+    async upsertScoreAssignment(
+        @Arg('data') data: ScoreCreateInput,
+        @Ctx() ctx: Context
+    ): Promise<Score> {
+        const studentObject = await ctx.prisma.student.findUnique({
+            where: { email: data.student_email }
+        });
 
-    // @Mutation((returns) => Score)
-    // async createCourse(
-    //     @Arg('data') data: ScoreCreateInput,
-    //     @Ctx() ctx: Context
-    // ): Promise<Score> {
-    //     return ctx.prisma.score.create({
-    //         data: {
-    //             score: data.score
-    //             name: data.name,
-    //             period: data.period
-    //         }
-    //     })
-    // }
+        if (studentObject == null || studentObject.id == null  ){
+            return new Score();
+        }
 
-    // @Mutation((returns) => Score)
-    // async upsertScoreAssignment(
-    //     @Arg('data') data: ScoreCreateInput,
-    //     @Ctx() ctx: Context
-    // ): Promise<Score> {
+        const assignmentObject = await ctx.prisma.assignment.findUnique({
+            where: { name: data.assignment_name }
+        });
 
-    //     return ctx.prisma.score.upsert({
-    //         where: {
-    //             studentId_assignmentId: {assignmentId: }
-    //             studentEmail_assignmentName: { : data.assignment_name, studentEmail: data.student_email}                
-    //         },
-    //         create: {
-    //             score: data.score,
-    //             student: {
-    //                 connect: { email: data.student_email }
-    //             },
-    //             assignment: {
-    //                 connect: { name: data.assignment_name }
-    //             }
-    //         },
-    //         update: {
-    //             score: data.score,
-    //             student: {
-    //                 connect: { email: data.student_email }
-    //             },
-    //             assignment: {
-    //                 connect: { name: data.assignment_name }
-    //             }
-    //         }
-    //     })
-    // }
+        if (assignmentObject == null || assignmentObject.id == null  ){
+            return new Score();
+        }
+
+        return ctx.prisma.score.upsert({
+            include: { assignment: true, student: true},
+            where: {
+                studentId_assignmentId: { studentId: studentObject.id, assignmentId: assignmentObject.id }             
+            },
+            create: {
+                score: data.score,
+                student: {
+                    connect: { email: data.student_email }
+                },
+                assignment: {
+                    connect: { name: data.assignment_name }
+                }
+            },
+            update: {
+                score: data.score,
+                student: {
+                    connect: { email: data.student_email }
+                },
+                assignment: {
+                    connect: { name: data.assignment_name }
+                }
+            }
+        })
+    }
 }
