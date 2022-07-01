@@ -13,13 +13,16 @@ export class Assignment {
     @Field((type) => String)
     name: String 
 
-    @Field((type) => Course)
+    @Field((type) => Course, { nullable: true })
     course?: Course 
 
-    @Field((type) => Professor)
+    @Field((type) => Professor, { nullable: true })
     professor?: Professor 
 
-    @Field((type) => Student)
+    @Field((type) => [Student], { nullable: true })
     students?: Student[]
+
+    @Field(type => Number, { nullable: true})
+    scoreAverage?: number 
 
 }

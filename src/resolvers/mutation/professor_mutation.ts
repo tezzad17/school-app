@@ -68,19 +68,6 @@ export class ProfessorMutation {
         @Ctx() ctx: Context
     ): Promise<Professor> {
 
-
-        const result = ctx.prisma.assignment.upsert({
-            where: {
-                name: data.assignmentName
-            },
-            create: {
-                name: data.assignmentName
-            },
-            update: {
-                name: data.assignmentName
-            }
-        });
-
         return ctx.prisma.professor.upsert({
             where: {
                 email: data.email
@@ -89,22 +76,21 @@ export class ProfessorMutation {
                 name: data.name,
                 email: data.email,
                 assignments: {
-                    connect: [{
-                        id: (await result).id
+                    connectOrCreate: [{
+                        where: { name: data.assignmentName },
+                        create: { name: data.assignmentName }
                     }]
                 }
-
             },
             update: {
                 name: data.name,
                 assignments: {
-                    connect: [{
-                        id: (await result).id
+                    connectOrCreate: [{
+                        where: { name: data.assignmentName },
+                        create: { name: data.assignmentName }
                     }]
                 }
             }
         })
     }
-
-
 }

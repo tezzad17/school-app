@@ -38,11 +38,10 @@ model Student {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  Course   Course? @relation(fields: [courseId], references: [id])
-  courseId String? @db.ObjectId
-
   assignmentsIds String[]     @db.ObjectId
   assignments    Assignment[] @relation(fields: [assignmentsIds], references: [id])
+
+  scores Score[]
 }
 
 model Assignment {
@@ -59,6 +58,21 @@ model Assignment {
 
   studentsIds String[]  @db.ObjectId
   students    Student[] @relation(fields: [studentsIds], references: [id])
+
+  scores Score[]
+}
+
+model Score {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  score Int
+
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String  @db.ObjectId
+
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignmentId String     @db.ObjectId
+
+  @@unique([studentId, assignmentId])
 }
 
 model Course {
@@ -68,7 +82,6 @@ model Course {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now())
   assignments Assignment[]
-  students    Student[]
 
   @@unique([name, period])
 }

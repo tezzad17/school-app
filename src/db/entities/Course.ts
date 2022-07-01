@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { type } from 'os';
 import { Student } from './Student';
+import { Assignment } from './Assignment';
 
 @ObjectType()
 export class Course {
@@ -14,7 +15,7 @@ export class Course {
     @Field((type) => String)
     period: string 
 
-    @Field((type) => Student)
-    students?: Student[]
+    @Field((type) => [Assignment], { nullable: true })
+    assignments?: Assignment[]
 
 }
