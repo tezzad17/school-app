@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, Float } from 'type-graphql';
 import { IsEmail } from 'class-validator';
 import { type } from 'os';
 import { Assignment } from './Assignment';
@@ -18,6 +18,5 @@ export class Professor {
 
     @Field((type) => [Assignment])
     assignments?: Assignment[]
-
 
 }

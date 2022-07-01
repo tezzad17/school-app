@@ -16,14 +16,25 @@ import { Course } from '../../db/entities/Course'
 @Resolver(Assignment)
 export class AssignmentQuery {
 
-    // @FieldResolver()
-    // async assignments(@Root() assignment: Assignment, @Ctx() ctx: Context): Promise<Course> {
-    //     return ctx.prisma.assignment.findUnique({
-    //         where: {
-    //             name: { assignment.name }
-    //         }
-    //     }).course()
-    // }
+
+    @FieldResolver()
+    async scoreAverage(@Root() assignment: Assignment, @Ctx() ctx: Context) {
+        const assignmentObject = await ctx.prisma.assignment.findUnique({ 
+            where: { id: assignment.id},
+            include: { scores: true }
+        });
+
+        if (assignmentObject == null){
+            throw new Assignment();
+        }
+
+        //console.log(studentObject.scores);
+        const sumScores = assignmentObject.scores.reduce((a, b) => a + b.score, 0)
+        const scoreAverage = assignmentObject.scores.length ? sumScores / assignmentObject.scores.length : null;
+
+        return scoreAverage;
+
+    }
 
     @Query(() => [Assignment])
     async allAssignments(@Ctx() ctx: Context) {

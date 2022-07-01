@@ -22,4 +22,7 @@ export class Assignment {
     @Field((type) => [Student], { nullable: true })
     students?: Student[]
 
+    @Field(type => Number, { nullable: true})
+    scoreAverage?: number 
+
 }
