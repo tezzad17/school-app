@@ -1,4 +1,4 @@
-import { PrismaClient, Student } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { mockDeep, DeepMockProxy } from "jest-mock-extended"
 import { User } from "../db/entities/User";
 import  prisma  from "../client"
@@ -7,7 +7,6 @@ export interface Context {
     prisma: PrismaClient;
     jwt?: string;
     user?: User;
-    student?: Student
 }
 
 export type MockContext = {

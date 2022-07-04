@@ -10,6 +10,7 @@ import {
 import { Student } from '../../db/entities/Student'
 import { Context } from '../../config/context'
 import { Assignment } from '../../db/entities/Assignment'
+import { Score } from '../../db/entities/Score'
 
 @Resolver(Student)
 export class StudentQuery {
@@ -26,7 +27,7 @@ export class StudentQuery {
         }
 
         //console.log(studentObject.scores);
-        const sumScores = studentObject.scores.reduce((a, b) => a + b.score, 0)
+        const sumScores = studentObject.scores.reduce((a: number, b: Score) => a + b.score, 0)
         const scoreAverage = studentObject.scores.length ? sumScores / studentObject.scores.length : null;
 
         return scoreAverage;

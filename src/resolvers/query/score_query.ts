@@ -1,4 +1,3 @@
-import { Assignment } from '@prisma/client'
 import 'reflect-metadata'
 import {
     Resolver,
@@ -11,7 +10,6 @@ import {
     Root,
 } from 'type-graphql'
 import { Context } from '../../config/context'
-import { Professor } from '../../db/entities/Professor'
 import { Score } from '../../db/entities/Score'
 
 @Resolver(Score)

@@ -10,7 +10,6 @@ import {
     Arg,
 } from 'type-graphql'
 import { Context } from '../../config/context'
-import { type } from 'os';
 import { Score } from '../../db/entities/Score';
 
 

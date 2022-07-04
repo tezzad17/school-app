@@ -1,7 +1,6 @@
 import 'reflect-metadata'
 import {
     Resolver,
-    Query,
     Ctx,
     InputType,
     Field,
@@ -9,10 +8,7 @@ import {
     Arg,
 } from 'type-graphql'
 import { Context } from '../../config/context'
-import { Student } from '../../db/entities/Student';
 import { Assignment } from '../../db/entities/Assignment';
-import { type } from 'os';
-import { Course } from '../../db/entities/Course';
 
 
 @InputType()

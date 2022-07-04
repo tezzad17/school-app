@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 14.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 18.x
           cache: 'npm'
       - run: npm ci
       - run: npm test
@@ -27,7 +27,7 @@ jobs:
         run: |
           docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
-        run: docker build . --file dockerfile.dev -t ${{secrets.DOCKER_USER}}/school-backend:${{ env.DOCKER_TIME }}
+        run: docker build . --file dockerfile -t ${{secrets.DOCKER_USER}}/school-backend:${{ env.DOCKER_TIME }}
       - name: Push Docker Image to DockerHub
         run: docker push ${{secrets.DOCKER_USER}}/school-backend:${{ env.DOCKER_TIME }}
       - name: Tag Docker Image to DockerHub Latest
