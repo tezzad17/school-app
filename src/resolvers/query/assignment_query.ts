@@ -11,7 +11,7 @@ import {
 } from 'type-graphql'
 import { Context } from '../../config/context'
 import { Assignment } from '../../db/entities/Assignment'
-import { Course } from '../../db/entities/Course'
+import { Score } from '../../db/entities/Score'
 
 @Resolver(Assignment)
 export class AssignmentQuery {
@@ -29,7 +29,7 @@ export class AssignmentQuery {
         }
 
         //console.log(studentObject.scores);
-        const sumScores = assignmentObject.scores.reduce((a, b) => a + b.score, 0)
+        const sumScores = assignmentObject.scores.reduce((a: number, b: Score) => a + b.score, 0)
         const scoreAverage = assignmentObject.scores.length ? sumScores / assignmentObject.scores.length : null;
 
         return scoreAverage;

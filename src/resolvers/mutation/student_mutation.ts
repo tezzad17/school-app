@@ -12,7 +12,6 @@ import {
 import { Context } from '../../config/context'
 import { Student } from '../../db/entities/Student';
 import { Assignment } from '../../db/entities/Assignment';
-import { type } from 'os';
 
 
 @InputType()
