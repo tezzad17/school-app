@@ -30,3 +30,7 @@ jobs:
         run: docker build . --file dockerfile.dev -t ${{secrets.DOCKER_USER}}/school-backend:${{ env.DOCKER_TIME }}
       - name: Push Docker Image to DockerHub
         run: docker push ${{secrets.DOCKER_USER}}/school-backend:${{ env.DOCKER_TIME }}
+      - name: Tag Docker Image to DockerHub latest
+        run: docker tag ${{secrets.DOCKER_USER}}/school-backend:${{ env.DOCKER_TIME }} ${{secrets.DOCKER_USER}}/school-backend:latest
+      - name: Tag Docker Image to DockerHub latest
+        run: docker push ${{secrets.DOCKER_USER}}/school-backend:latest
