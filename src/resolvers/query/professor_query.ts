@@ -27,7 +27,7 @@ export class ProfessorQuery {
 
 
     @Query(() => [Professor])
-    async allProfessors(@Ctx() ctx: Context) {
+    async getProfessors(@Ctx() ctx: Context) {
         return ctx.prisma.professor.findMany()
     }
 
@@ -44,7 +44,7 @@ export class ProfessorQuery {
 
 
     @Query(() => String)
-    async scoreAverageByEmail(@Ctx() ctx: Context, @Arg("email") userId: string) {
+    async getProfessorScoreAverageByEmail(@Ctx() ctx: Context, @Arg("email") userId: string) {
         const professorFound = ctx.prisma.professor.findUnique({
             where: {
                 id: userId

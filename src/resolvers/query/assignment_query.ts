@@ -37,7 +37,7 @@ export class AssignmentQuery {
     }
 
     @Query(() => [Assignment])
-    async allAssignments(@Ctx() ctx: Context) {
+    async getAssignments(@Ctx() ctx: Context) {
         return ctx.prisma.assignment.findMany({
             include: { course: true, students: true, professor: true}
         })

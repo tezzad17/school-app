@@ -7,7 +7,6 @@ import { CourseMutation } from './course_mutation'
 import { ScoreMutation } from './score_mutation'
 
 export const mutations: NonEmptyArray<Function> = [
-    UserMutation,
     AssignmentMutation,
     ProfessorMutation,
     StudentMutation,

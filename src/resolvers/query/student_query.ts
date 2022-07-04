@@ -43,7 +43,7 @@ export class StudentQuery {
     }
 
     @Query(() => [Student])
-    async allStudents(@Ctx() ctx: Context) {
+    async getStudents(@Ctx() ctx: Context) {
         return ctx.prisma.student.findMany()
     }
 

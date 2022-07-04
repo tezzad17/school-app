@@ -62,7 +62,7 @@ export class AssignmentMutation {
     }
 
     @Mutation((returns) => Assignment)
-    async updateAssignmentRelatesStudent(
+    async updateAssignmentWithStudent(
         @Arg('data') data: CreateAssignmentRelatesProfessorInput,
         @Ctx() ctx: Context
     ): Promise<Assignment> {
@@ -75,7 +75,7 @@ export class AssignmentMutation {
     }
 
     @Mutation((returns) => Assignment)
-    async updateAssignmentRelatesCourse(
+    async updateAssignmentWithCourse(
         @Arg('data') data: AssignmentRelatesCourseInput,
         @Ctx() ctx: Context
     ): Promise<Assignment> {
