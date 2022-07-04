@@ -33,7 +33,7 @@ class ScoreCreateInput implements Partial<Score> {
 export class ScoreMutation {
 
     @Mutation((returns) => Score)
-    async upsertScoreAssignment(
+    async upsertScoreWithAssignment(
         @Arg('data') data: ScoreCreateInput,
         @Ctx() ctx: Context
     ): Promise<Score> {

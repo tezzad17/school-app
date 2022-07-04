@@ -19,7 +19,7 @@ export class ScoreQuery {
 
 
     @Query(() => [Score])
-    async allScores(@Ctx() ctx: Context) {
+    async getScores(@Ctx() ctx: Context) {
         return ctx.prisma.score.findMany()
     }
 }

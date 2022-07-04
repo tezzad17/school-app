@@ -64,7 +64,7 @@ export class CourseMutation {
     }
 
     @Mutation((returns) => Course)
-    async upsertCourseAssignment(
+    async upsertCourseWithAssignment(
         @Arg('data') data: CourseUpsertInputAssignment,
         @Ctx() ctx: Context
     ): Promise<Course> {

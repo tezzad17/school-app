@@ -51,7 +51,7 @@ export class StudentMutation {
     }
 
     @Mutation((returns) => Student)
-    async studentSignUp(
+    async createStudent(
         @Arg('data') data: StudentCreateInput,
         @Ctx() ctx: Context
     ): Promise<Student> {
@@ -64,7 +64,7 @@ export class StudentMutation {
     }
 
     @Mutation((returns) => Student)
-    async studentUpsertAssignment(
+    async upsertStudentWithAssignment(
         @Arg('data') data: StudentCreateInputAssignment,
         @Ctx() ctx: Context
     ): Promise<Student> {

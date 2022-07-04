@@ -7,7 +7,6 @@ import { CourseQuery } from './course_query'
 import { ScoreQuery } from './score_query'
 
 export const queries: NonEmptyArray<Function> = [
-    UserQuery,
     AssignmentQuery,
     ProfessorQuery,
     StudentQuery,

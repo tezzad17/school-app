@@ -24,7 +24,7 @@ export class CourseQuery {
     }
 
     @Query(() => [Course])
-    async allCourse(@Ctx() ctx: Context) {
+    async getCourses(@Ctx() ctx: Context) {
         return ctx.prisma.course.findMany({
             include: { assignments: true }
         })
