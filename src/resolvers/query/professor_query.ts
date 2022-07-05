@@ -42,21 +42,4 @@ export class ProfessorQuery {
 
     }
 
-
-    @Query(() => String)
-    async getProfessorScoreAverageByEmail(@Ctx() ctx: Context, @Arg("email") userId: string) {
-        const professorFound = ctx.prisma.professor.findUnique({
-            where: {
-                id: userId
-            }
-        });
-
-        return ctx.prisma.professor.findUnique({
-            where: {
-                id: userId
-            }
-        });
-
-    }
-
 }
