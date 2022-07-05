@@ -1,20 +1,13 @@
-import 'reflect-metadata'
+import 'reflect-metadata';
 import {
-    Resolver,
-    FieldResolver,
-    Root,
-    Ctx,
-    InputType,
-    Field,
-    Mutation,
-    Arg,
-} from 'type-graphql'
-import { Context } from '../../config/context'
+    Arg, Ctx, Field, InputType, Mutation, Resolver
+} from 'type-graphql';
+import { Context } from '../../config/context';
 import { Score } from '../../db/entities/Score';
 
 
 @InputType()
-class ScoreCreateInput implements Partial<Score> {
+export class ScoreCreateInput implements Partial<Score> {
 
     @Field()
     score: number 

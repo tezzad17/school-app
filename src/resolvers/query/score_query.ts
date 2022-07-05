@@ -2,12 +2,7 @@ import 'reflect-metadata'
 import {
     Resolver,
     Query,
-    Ctx,
-    InputType,
-    Field,
-    Arg,
-    FieldResolver,
-    Root,
+    Ctx
 } from 'type-graphql'
 import { Context } from '../../config/context'
 import { Score } from '../../db/entities/Score'

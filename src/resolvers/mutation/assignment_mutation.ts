@@ -12,14 +12,14 @@ import { Assignment } from '../../db/entities/Assignment';
 
 
 @InputType()
-class AssignmentCreateInput implements Partial<Assignment> {
+export class AssignmentCreateInput implements Partial<Assignment> {
 
     @Field()
     name: string;
 }
 
 @InputType()
-class CreateAssignmentRelatesProfessorInput implements Partial<Assignment> {
+export class CreateAssignmentRelatesProfessorInput implements Partial<Assignment> {
 
     @Field()
     name: string;
@@ -29,7 +29,7 @@ class CreateAssignmentRelatesProfessorInput implements Partial<Assignment> {
 }
 
 @InputType()
-class AssignmentRelatesCourseInput implements Partial<Assignment> {
+export class AssignmentRelatesCourseInput implements Partial<Assignment> {
 
     @Field()
     name: string;

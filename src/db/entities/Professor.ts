@@ -1,7 +1,6 @@
-import 'reflect-metadata';
-import { ObjectType, Field, ID, Float } from 'type-graphql';
 import { IsEmail } from 'class-validator';
-import { type } from 'os';
+import 'reflect-metadata';
+import { Field, ID, ObjectType } from 'type-graphql';
 import { Assignment } from './Assignment';
 
 @ObjectType()

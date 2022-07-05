@@ -15,7 +15,7 @@ import { Course } from '../../db/entities/Course';
 
 
 @InputType()
-class CourseCreateInput implements Partial<Course> {
+export class CourseCreateInput implements Partial<Course> {
     @Field()
     period: string;
 
@@ -24,7 +24,7 @@ class CourseCreateInput implements Partial<Course> {
 }
 
 @InputType()
-class CourseUpsertInputAssignment implements Partial<Course> {
+export class CourseUpsertInputAssignment implements Partial<Course> {
     @Field()
     period: string;
 

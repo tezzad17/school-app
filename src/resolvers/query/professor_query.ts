@@ -1,13 +1,6 @@
 import 'reflect-metadata'
 import {
-    Resolver,
-    Query,
-    Ctx,
-    InputType,
-    Field,
-    Arg,
-    FieldResolver,
-    Root,
+    Arg, Ctx, FieldResolver, Query, Resolver, Root
 } from 'type-graphql'
 import { Context } from '../../config/context'
 import { Assignment } from '../../db/entities/Assignment'
@@ -37,23 +30,6 @@ export class ProfessorQuery {
         return ctx.prisma.professor.findUnique({
             where: {
                 email: email
-            }
-        });
-
-    }
-
-
-    @Query(() => String)
-    async getProfessorScoreAverageByEmail(@Ctx() ctx: Context, @Arg("email") userId: string) {
-        const professorFound = ctx.prisma.professor.findUnique({
-            where: {
-                id: userId
-            }
-        });
-
-        return ctx.prisma.professor.findUnique({
-            where: {
-                id: userId
             }
         });
 
