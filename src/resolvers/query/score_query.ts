@@ -18,6 +18,11 @@ export class ScoreQuery {
 
     @Query(() => [Score])
     async getScores(@Ctx() ctx: Context) {
-        return ctx.prisma.score.findMany()
+        return ctx.prisma.score.findMany({
+            include: {
+                assignment: true,
+                student: true
+            }
+        })
     }
 }
