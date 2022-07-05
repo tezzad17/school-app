@@ -1,13 +1,6 @@
 import 'reflect-metadata'
 import {
-    Resolver,
-    Query,
-    Ctx,
-    InputType,
-    Field,
-    Arg,
-    FieldResolver,
-    Root,
+    Arg, Ctx, FieldResolver, Query, Resolver, Root
 } from 'type-graphql'
 import { Context } from '../../config/context'
 import { Assignment } from '../../db/entities/Assignment'

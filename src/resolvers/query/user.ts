@@ -1,14 +1,9 @@
 import 'reflect-metadata'
 import {
-    Resolver,
-    Query,
-    Ctx,
-    InputType,
-    Field,
-    Arg,
+    Arg, Ctx, Query, Resolver
 } from 'type-graphql'
-import { User } from '../../db/entities/User'
 import { Context } from '../../config/context'
+import { User } from '../../db/entities/User'
 
 @Resolver(User)
 export class UserQuery {

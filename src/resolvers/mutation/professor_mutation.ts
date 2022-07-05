@@ -15,7 +15,7 @@ import { Professor } from '../../db/entities/Professor';
 
 
 @InputType()
-class ProfessorCreateInput implements Partial<Professor> {
+export class ProfessorCreateInput implements Partial<Professor> {
     @Field()
     email: string;
 
@@ -24,7 +24,7 @@ class ProfessorCreateInput implements Partial<Professor> {
 }
 
 @InputType()
-class ProfessorCreateInputAssignment implements Partial<Professor> {
+export class ProfessorCreateInputAssignment implements Partial<Professor> {
     @Field()
     email: string;
 

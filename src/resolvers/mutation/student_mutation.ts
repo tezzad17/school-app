@@ -1,21 +1,14 @@
-import 'reflect-metadata'
+import 'reflect-metadata';
 import {
-    Resolver,
-    FieldResolver,
-    Root,
-    Ctx,
-    InputType,
-    Field,
-    Mutation,
-    Arg,
-} from 'type-graphql'
-import { Context } from '../../config/context'
-import { Student } from '../../db/entities/Student';
+    Arg, Ctx, Field, FieldResolver, InputType, Mutation, Resolver, Root
+} from 'type-graphql';
+import { Context } from '../../config/context';
 import { Assignment } from '../../db/entities/Assignment';
+import { Student } from '../../db/entities/Student';
 
 
 @InputType()
-class StudentCreateInput implements Partial<Student> {
+export class StudentCreateInput implements Partial<Student> {
     @Field()
     email: string;
 
@@ -25,7 +18,7 @@ class StudentCreateInput implements Partial<Student> {
 }
 
 @InputType()
-class StudentCreateInputAssignment implements Partial<Student> {
+export class StudentCreateInputAssignment implements Partial<Student> {
     @Field()
     email: string;
 
