@@ -36,9 +36,8 @@ describe('Student Mutation Class', () => {
 
         mockCtx.prisma.student.create.mockResolvedValue(expectStudent);
         const response = await studentClass.createStudent(request, mockCtx);
-        console.log(response);
-        console.log(expectStudent);
-        // expect(response).resolves.toEqual(expectStudent);
+        // console.log(response);
+        // console.log(expectStudent);
         expect(response).toMatchObject(expectStudent)
     });
 
@@ -61,9 +60,8 @@ describe('Student Mutation Class', () => {
 
         mockCtx.prisma.student.upsert.mockResolvedValue(expectStudent);
         const response = await studentClass.upsertStudentWithAssignment(request, mockCtx);
-        console.log(response);
-        console.log(expectStudent);
-        // expect(response).resolves.toEqual(expectStudent);
+        // console.log(response);
+        // console.log(expectStudent);
         expect(response).toMatchObject(expectStudent)
     });
 
