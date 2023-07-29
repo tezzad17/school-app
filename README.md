@@ -1,6 +1,6 @@
 # School App Backend
 
-Froyecto demo con el uso de diferentes tecnologías con GraphQL y Apollo Server.
+Proyecto demo con el uso de diferentes tecnologías con GraphQL y Apollo Server.
 
 ## Uso
 
